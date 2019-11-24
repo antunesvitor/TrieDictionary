@@ -94,7 +94,7 @@ namespace DicionarioTrie.Trie
         private void _autoCompletar(string prefixoRestante, int limite, string prefixoSomado){
             
             if(prefixoRestante.Length == 0){
-                
+
                 prefixoSomado = prefixoSomado.Remove(prefixoSomado.Length - 1);
                 this._imprimeFilhos(prefixoSomado, limite);
                 return;
@@ -132,8 +132,8 @@ namespace DicionarioTrie.Trie
 
             foreach (var filho in filhos){
 
-                int qtdRestante = filho._imprimeFilhos(prefixo + letra, limite);
-                if(qtdRestante == 0){
+                limite = filho._imprimeFilhos(prefixo + letra, limite);
+                if(limite == 0){
                     return 0;
                 }
             }
