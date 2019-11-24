@@ -15,5 +15,7 @@ namespace DicionarioTrie.Utils
 
         [Name("l", "limite"), Description("limite de palavras inseridas")]
         public int limite { get; set; }
+        [Name("i", "idioma"), Description("O idioma o qual quer procurar a palavra")]
+        public string idioma { get; set; }
     }
 }

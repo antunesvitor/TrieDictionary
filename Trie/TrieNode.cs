@@ -29,6 +29,14 @@ namespace DicionarioTrie.Trie
             filhos = new List<TrieNode>();
         }
 
+        public void AdicionarArrayPalavras(string [] palavras)
+        {
+            foreach (var palavra in palavras)
+            {
+                AdicionarPalavra(palavra);
+            }
+        }
+
         public void AdicionarPalavra(string palavra){
 
             //verifica se é o ultimo nó, se for define-se a si msm como palavra
@@ -151,6 +159,9 @@ namespace DicionarioTrie.Trie
             if(sufixo.Length == 0 && ehPalavra){
                 Console.WriteLine(prefixo);
                 limite --;
+                return;
+            }
+            else if(sufixo.Length == 0){
                 return;
             }
             char charAtual = sufixo[0];
