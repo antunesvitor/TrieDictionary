@@ -23,34 +23,36 @@ namespace DicionarioTrie
 
             TrieNode trie = new TrieNode();
 
+            string dicio = "./dicionarios/pt";
+
+            if (optionArgs.idioma != null)
+            {
+                dicio = $"./dicionarios/{optionArgs.idioma}";
+            }
+
+
             if (optionArgs.completar != null)
             {
                 char primeiraLetra = optionArgs.completar[0];
-                if (optionArgs.idioma == "pt")
-                {
-                    string[] lines = System.IO.File.ReadAllLines($"./dicionarios/pt/{primeiraLetra}.txt");
-                    trie.AdicionarArrayPalavras(lines);
-                }
+                string[] lines = System.IO.File.ReadAllLines($"{dicio}/{primeiraLetra}.txt");
+                trie.AdicionarArrayPalavras(lines);
+
                 trie.autoCompletar(optionArgs.completar, optionArgs.limite);
             }
             else if (optionArgs.sugerir != null)
             {
                 char primeiraLetra = optionArgs.sugerir[0];
-                if (optionArgs.idioma == "pt")
-                {
-                    string[] lines = System.IO.File.ReadAllLines($"./dicionarios/pt/{primeiraLetra}.txt");
-                    trie.AdicionarArrayPalavras(lines);
-                }
+                string[] lines = System.IO.File.ReadAllLines($"{dicio}/{primeiraLetra}.txt");
+                trie.AdicionarArrayPalavras(lines);
+
                 trie.sugerirPalavras(optionArgs.sugerir, optionArgs.limite);
             }
             else if (optionArgs.corrigir != null)
             {
                 char primeiraLetra = optionArgs.corrigir[0];
-                if (optionArgs.idioma == "pt")
-                {
-                    string[] lines = System.IO.File.ReadAllLines($"./dicionarios/pt/{primeiraLetra}.txt");
-                    trie.AdicionarArrayPalavras(lines);
-                }
+                string[] lines = System.IO.File.ReadAllLines($"{dicio}/{primeiraLetra}.txt");
+                trie.AdicionarArrayPalavras(lines);
+
                 trie.corrigirPalavra(optionArgs.corrigir);
             }
             else
