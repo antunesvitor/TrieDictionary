@@ -38,13 +38,13 @@ namespace DicionarioTrie.Trie
             else{
                 this.count++;
 
-                var palavraArray = palavra.ToCharArray();
+                char charAtual = palavra[0];
 
-                var filhoEleito = obterFilhoComLetra(palavraArray[0]);
+                var filhoEleito = obterFilhoComLetra(charAtual);
 
                 if(filhoEleito == null)
                 {
-                    TrieNode novoFilho = new TrieNode(palavraArray[0]);
+                    TrieNode novoFilho = new TrieNode(charAtual);
                     this.filhos.Add(novoFilho);
                     novoFilho.AdicionarPalavra(palavra.Substring(1, palavra.Length - 1));
                 }
@@ -57,7 +57,7 @@ namespace DicionarioTrie.Trie
         }
 
         private TrieNode obterFilhoComLetra(char letra){
-            return filhos.Where(x=>x.letra == letra).FirstOrDefault();
+            return filhos.Where(x => x.letra == letra).FirstOrDefault();
         }
 
         //verifica se palavra está no dicionário
@@ -72,9 +72,9 @@ namespace DicionarioTrie.Trie
                 }
             }
             
-            var palavraArray = palavra.ToCharArray();
+            char charAtual = palavra[0];
 
-            var filhoEleito = obterFilhoComLetra(palavraArray[0]);
+            var filhoEleito = obterFilhoComLetra(charAtual);
 
             if (filhoEleito == null){
                 return false;
