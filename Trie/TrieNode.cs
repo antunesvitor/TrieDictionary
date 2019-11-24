@@ -148,7 +148,11 @@ namespace DicionarioTrie.Trie
 
         private void _sugerirPalavras(string sufixo, string prefixo, int limite)
         {
-
+            if(sufixo.Length == 0 && ehPalavra){
+                Console.WriteLine(prefixo);
+                limite --;
+                return;
+            }
             char charAtual = sufixo[0];
             
             TrieNode filhoAtual = obterFilhoComLetra(charAtual);
@@ -166,10 +170,15 @@ namespace DicionarioTrie.Trie
             }
 
             else{
-                
+
                 prefixo = prefixo.Remove(prefixo.Length - 1);
                 _imprimeFilhos(prefixo, limite);
             }
+        }
+
+        public void corrigirPalavra (string palavra)
+        {
+            _sugerirPalavras(palavra, "", 1);
         }
     }      
 }
