@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DicionarioTrie.Trie
 {
@@ -83,6 +84,61 @@ namespace DicionarioTrie.Trie
                 string resto = palavra.Substring(1, palavra.Length - 1);
                 return filhoEleito.procurarPalavra(resto);
             }
+        }
+
+        public void autoCompletar (string prefixo, int limite){
+
+            _autoCompletar(prefixo, limite, "");
+        }
+
+        private void _autoCompletar(string prefixoRestante, int limite, string prefixoSomado){
+            
+            if(prefixoRestante.Length == 0){
+                
+                prefixoSomado = prefixoSomado.Remove(prefixoSomado.Length - 1);
+                this._imprimeFilhos(prefixoSomado, limite);
+                return;
+            }
+
+            //Se houver letras no prefixo prossiga percorrendo a trie
+            char charAtual = prefixoRestante[0];
+
+            TrieNode filhoEleito = obterFilhoComLetra(charAtual);
+
+            //se não encontrar o caminho do prefixo na arvore, o prefixo não existe 
+            if(filhoEleito == null){
+                Console.WriteLine("Não encontrado");
+                return;
+            }
+
+            else 
+            {
+                string novoPrefixo = prefixoRestante.Substring(1, prefixoRestante.Length - 1);
+
+                filhoEleito._autoCompletar(novoPrefixo, limite, prefixoSomado + filhoEleito.letra);
+            }
+                
+        }
+
+        private int _imprimeFilhos(string prefixo, int limite){
+
+            if(ehPalavra) {
+                Console.WriteLine(prefixo + letra);
+                limite --;
+            }
+
+            if(limite == 0)
+                return 0;
+
+            foreach (var filho in filhos){
+
+                int qtdRestante = filho._imprimeFilhos(prefixo + letra, limite);
+                if(qtdRestante == 0){
+                    return 0;
+                }
+            }
+
+            return limite;
         }
     }      
 }
