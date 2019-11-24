@@ -140,5 +140,36 @@ namespace DicionarioTrie.Trie
 
             return limite;
         }
+
+        public void sugerirPalavras (string palavra, int limite)
+        {
+            _sugerirPalavras (palavra, "", limite);
+        }
+
+        private void _sugerirPalavras(string sufixo, string prefixo, int limite)
+        {
+
+            char charAtual = sufixo[0];
+            
+            TrieNode filhoAtual = obterFilhoComLetra(charAtual);
+
+            //remove primeiro char de sufixo
+            string novoSufixo = sufixo.Substring (1, sufixo.Length - 1);
+
+            // Se tiver filho correspondente então prossegue procurando na Trie
+            // Caso não encontre filho correspondente, ignora o charAtual, usa o novo sufixo e não acrescenta no prefixo o charAtual
+            if(filhoAtual != null){
+
+                string novoPrefixo = prefixo + charAtual;
+
+                filhoAtual._sugerirPalavras (novoSufixo, novoPrefixo, limite);
+            }
+
+            else{
+                
+                prefixo = prefixo.Remove(prefixo.Length - 1);
+                _imprimeFilhos(prefixo, limite);
+            }
+        }
     }      
 }
